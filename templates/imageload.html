@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+{% block content %}
+<table><canvas id="canvas" width="800" height="500" style="border:5px solid black; background-color:white;"></canvas>
+{% for post in posts %}
+<div align="left">
+<font color="white"><p>imageg no:</font>&nbsp;&nbsp;<font color="red">{{post.id}}</font>
+<font color="white"><p>imgage name:</font>&nbsp;&nbsp;<font color="red">{{post.title}}</font><br>
+<input type=button id={{post.imagedata}} value="Load image" Style="color:blue" onclick="loadimg(this.id)"><br>
+</div>
+<script type="text/javascript">
+function loadimg(imagedata)
+  {
+  var canvas = document.getElementById("canvas");
+  var context=canvas.getContext('2d');
+  list=JSON.parse(imagedata);
+   for (i in list)
+   {
+   if (list[i]['Type']=='line')
+      {
+      startx=list[i]['X0']
+      starty=list[i]['Y0']
+      endx=list[i]['X1']
+      endy=list[i]['Y1']
+      context.beginPath()
+      context.moveTo(startx-15,starty-15)
+      context.lineTo(endx-15,endy-15)
+      context.lineWidth=list[i]['width'];
+      context.strokeStyle=list[i]['color'];
+      context.stroke()
+      context.closePath()
+      }
+   if (list[i]["Type"]=='rectangle')
+      {
+      startx=list[i]["X0"]
+      starty=list[i]["Y0"]
+      rectwidth=list[i]["W"];
+      rectheight=list[i]["H"];
+      context.strokeStyle=list[i]['color']
+      context.fillStyle=list[i]['color']
+      context.lineWidth=list[i]['width']
+      context.strokeRect(startx-15,starty-15,rectwidth,rectheight);
+      if (list[i]["fill"]==1) {context.fillRect(startx-15,starty-15,rectwidth,rectheight);}
+      }
+
+   if (list[i]["Type"]=='circle')
+      {
+      startx=list[i]["X0"]
+      starty=list[i]["Y0"]
+      endx=list[i]["X1"]
+      endy=list[i]["Y1"]
+      context.beginPath();
+      context.arc((Math.abs(startx+endx)/2)-15, (Math.abs(starty+endy)/2)-15, Math.sqrt(Math.pow(endx-startx,2)+Math.pow(endy-starty,2))/2, 0, Math.PI*2, true); 
+      context.strokeStyle=list[i]['color']
+      context.fillStyle=list[i]['color']
+      context.lineWidth=list[i]['width']
+      context.stroke();
+      if(list[i]['fill']==1) {context.fill();}
+      context.closePath();
+      }
+
+   if(list[i]['Type']=='pencil')
+      {
+      startx=list[i]["X0"]
+      starty=list[i]["Y0"]
+      endx=list[i]["X1"]
+      endy=list[i]["Y1"]
+      context.beginPath();
+      context.moveTo(startx-15, starty-15);
+      context.lineTo(endx-15, endy-15);
+      context.strokeStyle=list[i]['color'];
+      context.lineWidth=list[i]['width'];
+      context.stroke();
+      context.closePath();
+      }
+
+   if(list[i]['Type']=='spray')
+      {
+      sx=list[i]["X0"];
+      sy=list[i]["Y0"];
+      context.fillStyle=list[i]['color'];
+      for (var i=0; i<20; i=i+5)
+         {
+         context.fillRect(sx+i-15, sy+i-15, 1.5, 1.5);
+         context.fillRect(sx-i-15, sy-i-15, 1.5, 1.5);
+         context.fillRect(sx-i-15, sy+i-15, 1.5, 1.5);
+         context.fillRect(sx+i-15, sy-i-15, 1.5, 1.5);
+         context.fillRect(sx-i-15, sy-15, 1, 1);
+         context.fillRect(sx-15, sy-i-15, 1, 1);
+         context.fillRect(sx-15, sy+i-15, 1, 1);
+         context.fillRect(sx+i-15, sy-15, 1, 1);
+         }
+      context.beginPath();
+      for(var i=0; i<15; i=i+5)
+         {
+         context.arc(sx+i-15, sy+i-15, 1.2, 0, Math.PI*2, true); 
+         context.arc(sx-i-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx+i-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx-i-15, sy-i-15, 1.2, 0, Math.PI*2, true); 
+         context.arc(sx-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx-i-15, sy-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx+i-15, sy-15, 1.2, 0, Math.PI*2, true);
+         } 
+      context.closePath();
+      context.fill();
+      }
+   if(list[i]['Type']=='spraymove')
+      {
+      sx=list[i]["X0"];
+      sy=list[i]["Y0"];
+      context.fillStyle=list[i]['color'];
+      for (var i=0; i<20; i=i+5)
+         {
+         context.fillRect(sx+i-15, sy+i-15, 1, 1);
+         context.fillRect(sx-i-15, sy-i-15, 1, 1);
+         context.fillRect(sx+i-15, sy-i-15, 1, 1);
+         context.fillRect(sx-i-15, sy+i-15, 1, 1);
+         context.fillRect(sx-i-15 ,sy-15, 1, 1);
+         context.fillRect(sx-15, sy-i-15, 1, 1);
+         context.fillRect(sx-15, sy+i-15, 1, 1);
+         context.fillRect(sx+i-15, sy-15, 1, 1);
+         }
+      context.beginPath();
+      for(var i=0; i<15; i=i+5)
+         {
+         context.arc(sx+i-15, sy+i-15, 1.2, 0, Math.PI*2, true); 
+         context.arc(sx-i-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx+i-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx-i-15, sy-i-15, 1.2, 0, Math.PI*2, true);   
+         context.arc(sx-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx-i-15, sy-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+         context.arc(sx+i-15, sy-15, 1.2, 0, Math.PI*2, true);
+         }
+      context.closePath();
+      context.fill();
+      }
+
+   if (list[i]['Type']=='eraser')
+      {
+      startx=list[i]["X0"]
+      starty=list[i]["Y0"]
+      context.beginPath();
+      context.clearRect(startx-15, starty-15, 15, 15);            
+      context.closePath();
+      }
+   }}
+</script>
+{% endfor %}
+{% endblock %}

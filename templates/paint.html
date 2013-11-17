@@ -1,0 +1,347 @@
+<html>
+<head><title>Paint your world</title>
+<div align="right"><h1><a href="{{url_for('gallery')}}"><img src="{{url_for('static',filename='picz.jpg')}}" style="position: fixed; top: 35; right: 25; border: 0;"></a>
+</h1></div>
+<canvas id="paint" width="800" height="500" style="border:5px solid black; background-color:white;"></canvas>
+<form><left>
+<input type="button" Style = "color:rgb(0,100,50)" value="Line" onclick="line()" >
+<input type="button" Style = "color:rgb(0,100,50)" value="Rectangle" onclick="rectangle()" >
+<input type="button" Style = "color:rgb(0,100,50)" value="Circle" onclick="circle()" >
+<input type="button" Style = "color:rgb(0,100,50)" value="Pencil" onclick="pencil()" >
+<input type="button" Style = "color:rgb(0,100,50)" value="Spray" onclick="spray()" >
+<input type="button" Style = "color:rgb(0,100,50)" value="Eraser" onclick="eraser()" >
+<input type="button" Style = "color:rgb(0,100,50)" value="Reset" onclick="resettle()" >
+<input type="radio" name="fille" onclick="fill()" value="1">Fill
+<input type="radio" name="fille" onclick="outline()" value="0">Outline
+<font style="bold" color = purple>Thickness</font>
+<select id = "linewid" style = "color:rgb(0,100,50)" onchange = "lineW()"> <option value = "2">2px</option><option value = "4">4px</option> 
+<option value = "6">6px</option><option value = "8">8px</option><option value = "10">10px</option><option value = "12">12px</option>
+<option value = "14">14px</option><option value = "16">16px</option><option value = "18">18px</option><option value = "20">20px</option></select> 
+</left></form>
+<table border=2 bgcolor=#FFFFFF align="left">
+<center><tr>
+<td><button onclick = "color('rgb(0,100,200)')" style="width:20px;height:20px;background-color:rgb(0,100,200)"></button></td>
+<td><button onclick = "color('rgb(0,125,255)')" style="width:20px;height:20px;background-color:rgb(0,125,255)"></button></td>
+<td><button onclick = "color('rgb(50,150,255)')" style="width:20px;height:20px;background-color:rgb(50,150,255)"></button></td>
+<td><button onclick = "color('rgb(100,175,255)')" style="width:20px;height:20px;background-color:rgb(100,175,255)"></button></td>
+<td><button onclick = "color('rgb(150,200,250)')" style="width:20px;height:20px;background-color:rgb(150,200,250)"></button></td>
+<td><button onclick = "color('rgb(250,0,125)')" style="width:20px;height:20px;background-color:rgb(250,0,50)"></button></td>
+<td><button onclick = "color('rgb(250,0,150)')" style="width:20px;height:20px;background-color:rgb(250,0,100)"></button></td>
+<td><button onclick = "color('rgb(250,0,175)')" style="width:20px;height:20px;background-color:rgb(250,0,150)"></button></td>
+<td><button onclick = "color('rgb(250,0,200)')" style="width:20px;height:20px;background-color:rgb(250,0,200)"></button></td>
+<td><button onclick = "color('rgb(250,0,250)')" style="width:20px;height:20px;background-color:rgb(250,0,250)"></button></td>
+<td><button onclick = "color('rgb(0,0,0)')" style="width:20px;height:20px;background-color:rgb(0,0,0)"></button></td>
+<td><button onclick = "color('rgb(50,50,50)')" style="width:20px;height:20px;background-color:rgb(50,50,50)"></button></td>
+<td><button onclick = "color('rgb(100,100,100)')" style="width:20px;height:20px;background-color:rgb(100,100,100)"></button></td>
+<td><button onclick = "color('rgb(175,175,175)')" style="width:20px;height:20px;background-color:rgb(175,175,175)"></button></td>
+<td><button onclick = "color('rgb(255,255,255)')" style="width:20px;height:20px;background-color:rgb(255,255,255)"></button></td>
+</tr><tr>
+<td><button onclick = "color('rgb(50,0,0)')" style="width:20px;height:20px;background-color:rgb(50,0,0)"></button></td>
+<td><button onclick = "color('rgb(100,50,0)')" style="width:20px;height:20px;background-color:rgb(100,50,0)"></button></td>
+<td><button onclick = "color('rgb(150,100,0)')" style="width:20px;height:20px;background-color:rgb(150,100,0)"></button></td>
+<td><button onclick = "color('rgb(200,150,0)')" style="width:20px;height:20px;background-color:rgb(200,150,0)"></button></td>
+<td><button onclick = "color('rgb(250,200,0)')" style="width:20px;height:20px;background-color:rgb(250,200,0)"></button></td>
+<td><button onclick = "color('rgb(0,50,0)')" style="width:20px;height:20px;background-color:rgb(0,50,0)"></button></td>
+<td><button onclick = "color('rgb(0,100,50)')" style="width:20px;height:20px;background-color:rgb(0,100,50)"></button></td>
+<td><button onclick = "color('rgb(0,150,100)')" style="width:20px;height:20px;background-color:rgb(0,150,100)"></button></td>
+<td><button onclick = "color('rgb(0,200,150)')" style="width:20px;height:20px;background-color:rgb(0,200,150)"></button></td>
+<td><button onclick = "color('rgb(0,250,200)')" style="width:20px;height:20px;background-color:rgb(0,250,200)"></button></td>
+<td><button onclick = "color('rgb(50,0,0)')" style="width:20px;height:20px;background-color:rgb(50,0,0)"></button></td>
+<td><button onclick = "color('rgb(100,0,50)')" style="width:20px;height:20px;background-color:rgb(100,0,50)"></button></td>
+<td><button onclick = "color('rgb(150,0,100)')" style="width:20px;height:20px;background-color:rgb(150,0,100)"></button></td>
+<td><button onclick = "color('rgb(200,0,150)')" style="width:20px;height:20px;background-color:rgb(200,0,150)"></button></td>
+<td><button onclick = "color('rgb(250,0,200)')" style="width:20px;height:20px;background-color:rgb(250,0,200)"></button></td>
+</tr><tr>
+<td><button onclick = "color('rgb(50,0,0)')" style="width:20px;height:20px;background-color:rgb(50,0,0)"></button></td>
+<td><button onclick = "color('rgb(100,0,0)')" style="width:20px;height:20px;background-color:rgb(100,0,0)"></button></td>
+<td><button onclick = "color('rgb(150,0,0)')" style="width:20px;height:20px;background-color:rgb(150,0,0)"></button></td>
+<td><button onclick = "color('rgb(200,0,0)')" style="width:20px;height:20px;background-color:rgb(200,0,0)"></button></td>
+<td><button onclick = "color('rgb(250,0,0)')" style="width:20px;height:20px;background-color:rgb(250,0,0)"></button></td>
+<td><button onclick = "color('rgb(0,50,0)')" style="width:20px;height:20px;background-color:rgb(0,50,0)"></button></td>
+<td><button onclick = "color('rgb(0,100,0)')" style="width:20px;height:20px;background-color:rgb(0,100,0)"></button></td>
+<td><button onclick = "color('rgb(0,150,0)')" style="width:20px;height:20px;background-color:rgb(0,150,0)"></button></td>
+<td><button onclick = "color('rgb(0,200,0)')" style="width:20px;height:20px;background-color:rgb(0,200,0)"></button></td>
+<td><button onclick = "color('rgb(0,250,0)')" style="width:20px;height:20px;background-color:rgb(0,250,0)"></button></td>
+<td><button onclick = "color('rgb(0,0,50)')" style="width:20px;height:20px;background-color:rgb(0,0,50)"></button></td>
+<td><button onclick = "color('rgb(0,0,100)')" style="width:20px;height:20px;background-color:rgb(0,0,100)"></button></td>
+<td><button onclick = "color('rgb(0,0,150)')" style="width:20px;height:20px;background-color:rgb(0,0,150)"></button></td>
+<td><button onclick = "color('rgb(0,0,200)')" style="width:20px;height:20px;background-color:rgb(0,0,200)"></button></td>
+<td><button onclick = "color('rgb(0,0,250)')" style="width:20px;height:20px;background-color:rgb(0,0,250)"></button></td>
+</tr></table>
+Filename<input name="filename" id='filename'>
+<input type="button" Style = "color:red" value="save" onclick="save()" >
+</center>
+<script src="{{url_for('static',filename='min.js')}}"></script>
+<script type="text/javascript">
+
+var canvas = document.getElementById("paint");
+var context = canvas.getContext('2d');
+jsondata = [];
+flag=0;
+function fill() {document.documentElement.style.cursor ='url(http://cur.cursors-4u.net/cursors/cur-2/cur116.cur),auto'
+flag = 1;} 
+function outline() {document.documentElement.style.cursor ='url(http://cur.cursors-4u.net/cursors/cur-2/cur116.cur),auto'
+flag = 0;}
+function lineW() {context.lineWidth = document.getElementById("linewid").value;}
+function color(chosed_colour)
+   {context.strokeStyle = chosed_colour;
+   context.fillStyle = chosed_colour;}
+function line() {tool = 'line'; draw();}
+function rectangle() {tool = 'rectangle'; draw();}
+function pencil() {tool = 'pencil'; draw();}
+function circle() {tool ='circle'; draw();}
+function spray() {tool = 'spray'; draw();}
+function eraser() {tool = 'eraser'; draw();}
+function draw()
+   {
+   if (tool=='line')
+      {
+      document.documentElement.style.cursor ='url(http://cur.cursors-4u.net/cursors/cur-2/cur116.cur),auto'
+      canvas.onmousedown = linedown;
+      canvas.onmouseup = lineup;
+      canvas.onmousemove = linemove;
+      function linedown(event)
+         {
+         canvas_img = context.getImageData(0, 0, paint.width, paint.height);
+         startx = event.x;
+         starty = event.y;
+         line_drag = true;
+         }
+      function lineup(event)
+         {
+         line_drag = false;
+         jsondata.push({"Type":"line", "X0":startx,"Y0":starty,"X1":endx,"Y1":endy,"width":context.lineWidth,"color":context.strokeStyle})
+         }
+      function linemove(event)
+         {
+         if (line_drag)
+            {
+            context.putImageData(canvas_img, 0, 0);
+            endx = event.x;
+            endy = event.y;
+            context.beginPath();
+            context.moveTo(startx-15, starty-15);
+            context.lineTo(endx-15, endy-15);
+            context.stroke();
+            context.closePath();
+            }
+         }  
+      }
+   if (tool=='rectangle')
+      {
+      canvas.onmousedown = rectdown;
+      canvas.onmouseup = rectup;
+      canvas.onmousemove = rectmove;
+      function rectdown(event)
+         {
+         document.documentElement.style.cursor ='url(http://cur.cursors-4u.net/cursors/cur-2/cur116.cur),auto'
+         canvas_img = context.getImageData(0, 0, paint.width, paint.height);
+         startx = event.x;
+         starty = event.y;
+         rect_drag = true;
+         }
+      function rectup(event)
+         {
+         rect_drag = false;
+         jsondata.push({"Type":"rectangle", "X0":startx,"Y0":starty,"W":rectwidth,"H":rectheight,"width":context.lineWidth, "color":context.strokeStyle,"fill":flag})
+         }
+      function rectmove(event)
+         {
+         if (rect_drag)
+            {
+            context.putImageData(canvas_img, 0, 0);
+            rectwidth = event.x - startx;
+            rectheight = event.y - starty;
+            context.strokeRect(startx-15, starty-15, rectwidth, rectheight);
+            if (flag==1)
+               {
+               context.fillRect(startx-15, starty-15, rectwidth, rectheight);
+               }
+            }
+         }
+      }
+   if(tool=='circle')
+      {
+      document.documentElement.style.cursor ='url(http://cur.cursors-4u.net/cursors/cur-2/cur116.cur),auto'
+      canvas.onmousedown = circledown;
+      canvas.onmouseup = circleup;
+      canvas.onmousemove = circlemove;
+      function circledown(event)
+         {
+         canvas_img = context.getImageData(0, 0, paint.width, paint.height);
+         startx = event.x;
+         starty = event.y;
+         circle_drag = true;
+         }
+      function circleup(event)
+         {
+         circle_drag = false;
+         jsondata.push({"Type":"circle", "X0":startx,"Y0":starty,"X1":endx,"Y1":endy,"width":context.lineWidth, "color":context.strokeStyle,"fill":flag})
+         }
+      function circlemove(event)
+         {
+         if (circle_drag)
+            {
+            context.putImageData(canvas_img, 0, 0);
+            endx = event.x;
+            endy = event.y;
+            context.beginPath();
+            context.arc((Math.abs(startx+endx)/2)-15, (Math.abs(starty+endy)/2)-15, Math.sqrt(Math.pow(endx-startx,2)+Math.pow(endy-starty,2))/2, 0, Math.PI*2, true); 	
+            context.closePath();
+            context.stroke();
+            if (flag==1)
+               {context.fill();}
+            }
+         }   
+      }
+   if(tool == 'pencil')
+      {
+      document.documentElement.style.cursor='url("http://cur.cursors-4u.net/user/use-1/use151.cur"),auto'
+      canvas.onmousedown = pencildown;
+      canvas.onmouseup = pencilup;
+      canvas.onmousemove = pencilmove;
+      function pencildown(event)
+         {
+         startx = event.x;
+         starty = event.y;
+         pencil_drag = true;
+         }
+      function pencilup()
+         {pencil_drag = false;}
+      function pencilmove(event)
+         {
+         if (pencil_drag)
+            {
+            endx = event.x;
+            endy = event.y;
+            context.beginPath();
+            context.moveTo(startx-15, starty-15);
+            context.lineTo(endx-15, endy-15);
+            context.stroke();
+            context.closePath();
+            jsondata.push({"Type":"pencil", "X0":startx,"Y0":starty,"X1":endx,"Y1":endy,"width":context.lineWidth,"color":context.strokeStyle})
+            startx = endx;
+            starty = endy;
+            }
+         }
+      }
+   if(tool=='spray')
+      {
+      document.documentElement.style.cursor ='url(http://cur.cursors-4u.net/nature/nat-9/nat865.cur)'
+      canvas.onmousedown = spraydown;
+      canvas.onmouseup = sprayup;
+      canvas.onmousemove = spraymove;
+      function spraydown(event)
+         {
+         sx = event.x;
+         sy = event.y;
+         spray_drag=true;
+        jsondata.push({"Type":"spray","X0":sx,"Y0":sy,"color":context.fillStyle}) 
+         for (var i=0; i<20; i=i+5)
+            {
+            context.fillRect(sx+i-15, sy+i-15, 1.5, 1.5);
+            context.fillRect(sx-i-15, sy-i-15, 1.5, 1.5);
+            context.fillRect(sx-i-15, sy+i-15, 1.5, 1.5);
+            context.fillRect(sx+i-15, sy-i-15, 1.5, 1.5);
+            context.fillRect(sx-i-15, sy-15, 1, 1);
+            context.fillRect(sx-15, sy-i-15, 1, 1);
+            context.fillRect(sx-15, sy+i-15, 1, 1);
+            context.fillRect(sx+i-15, sy-15, 1, 1);
+            }
+         context.beginPath();
+         for(var i=0; i<15; i=i+5)
+            {
+            context.arc(sx+i-15, sy+i-15, 1.2, 0, Math.PI*2, true); 
+            context.arc(sx-i-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+            context.arc(sx+i-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+            context.arc(sx-i-15, sy-i-15, 1.2, 0, Math.PI*2, true); 
+            context.arc(sx-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+            context.arc(sx-i-15, sy-15, 1.2, 0, Math.PI*2, true);
+            context.arc(sx-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+            context.arc(sx+i-15, sy-15, 1.2, 0, Math.PI*2, true);
+            } 
+         context.closePath();
+         context.fill();
+         }
+      function sprayup(event)
+         {spray_drag = false;}
+      function spraymove(event)
+         {
+         if (spray_drag)
+            {
+            sx = event.x;
+            sy = event.y;
+            jsondata.push({"Type":"spraymove", "X0":sx,"Y0":sy,"color":context.strokeStyle})
+            for (var i=0; i<20; i=i+5)
+               {
+               context.fillRect(sx+i-15, sy+i-15, 1, 1);
+               context.fillRect(sx-i-15, sy-i-15, 1, 1);
+               context.fillRect(sx+i-15, sy-i-15, 1, 1);
+               context.fillRect(sx-i-15, sy+i-15, 1, 1);
+               context.fillRect(sx-i-15 ,sy-15, 1, 1);
+               context.fillRect(sx-15, sy-i-15, 1, 1);
+               context.fillRect(sx-15, sy+i-15, 1, 1);
+               context.fillRect(sx+i-15, sy-15, 1, 1);
+               }
+            context.beginPath();
+            for(var i=0; i<15; i=i+5)
+               {
+               context.arc(sx+i-15, sy+i-15, 1.2, 0, Math.PI*2, true); 
+               context.arc(sx-i-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+               context.arc(sx+i-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+               context.arc(sx-i-15, sy-i-15, 1.2, 0, Math.PI*2, true);   
+               context.arc(sx-15, sy-i-15, 1.2, 0, Math.PI*2, true);
+               context.arc(sx-i-15, sy-15, 1.2, 0, Math.PI*2, true);
+               context.arc(sx-15, sy+i-15, 1.2, 0, Math.PI*2, true);
+               context.arc(sx+i-15, sy-15, 1.2, 0, Math.PI*2, true);
+               }
+            context.closePath();
+            context.fill();
+            }
+         }
+      }
+   if(tool=='eraser')
+      {
+      document.documentElement.style.cursor = 'url(http://cur.cursors-4u.net/toons/too-12/too1107.cur)'
+      canvas.onmousedown = erasedown;
+      canvas.onmouseup = eraseup;
+      canvas.onmousemove = erasemove;
+      function erasedown(event)
+         {
+         erase_drag = true;
+         }
+      function eraseup(event)
+         {
+         erase_drag = false;
+         }
+      function erasemove(event)
+         {
+         if(erase_drag)
+            {
+            startx = event.x;
+            starty = event.y;
+            context.clearRect(startx-15, starty-15, 15, 15);
+            jsondata.push({"Type":"eraser", "X0":startx,"Y0":starty})              
+           }
+         }
+      }
+   }
+function resettle()
+   {
+   document.documentElement.style.cursor = 'url(http://cur.cursors-4u.net/others/oth-1/oth3.png)'
+   context.clearRect(0 ,0, 800 ,500);
+   jsondata=[];
+   }
+
+function save() 
+   {
+   if (jsondata=='') {alert("You did not draw anything yet !!!");}
+   else
+      {  
+      alert(JSON.stringify(jsondata));
+      if (filename.value=="") {alert("Enter filename:");}
+      else {$.post("/"+filename.value,{'name':filename.value,'data':JSON.stringify(jsondata)},function(data,status){alert("saved!!!")});}
+      }
+   }
+</script>
+</html>

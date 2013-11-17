@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="jumbo">
+    <font color="blue"><h2>GALLERY<h2></font>
+{% for post in posts %}
+<form method="post" >
+<div align="center"><input type=button name="imgname" value={{post.title}} Style="color:rgb(0,150,100)" onclick="load(this.value,this.id)"></div><br>
+<script type="text/javascript">
+function load(cvalue)
+   {
+   document.location.href="/gallery/"+cvalue;
+   }
+</script>
+ {% endfor %}
+</div>
+{% endblock %}
