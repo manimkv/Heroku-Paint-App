@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 import psycopg2  
 import os
 import urlparse
-#import database
+import database
 
 app = Flask(__name__)
 app.config.from_object(__name__)
