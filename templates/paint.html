@@ -338,7 +338,6 @@ function save()
    if (jsondata=='') {alert("You did not draw anything yet !!!");}
    else
       {  
-      alert(JSON.stringify(jsondata));
       if (filename.value=="") {alert("Enter filename:");}
       else {$.post("/"+filename.value,{'name':filename.value,'data':JSON.stringify(jsondata)},function(data,status){alert("saved!!!")});}
       }
